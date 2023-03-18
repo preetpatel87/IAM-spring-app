@@ -1,0 +1,39 @@
+version: "3"
+services:
+  springboot-app:
+    container_name: spring-app
+    image: mcr.microsoft.com/devcontainers/java:0-17
+    # build: .
+    depends_on:
+      - postgresqldb
+        # condition: service_healthy
+    ports:
+      - "8080:8080"
+    # environment:
+      # POSTGRESQL_HOST: postgresqldb
+      # POSTGRESQL_USER: root
+      # POSTGRESQL_PASSWORD: root
+      # POSTGRESQL_PORT: 5432
+
+  postgresqldb:
+    container_name: postgresqldb
+    image: bitnami/postgresql
+    ports:
+      - '5432:5432'
+    volumes:
+      - db-data:/var/lib/postgresql
+    environment:
+      # - "ALLOW_EMPTY_PASSWORD=yes"
+      POSTGRESQL_DATABASE: easy_eng
+      POSTGRESQL_PASSWORD: root
+      POSTGRESQL_ROOT_PASSWORD: root
+    healthcheck:
+      test: "/usr/bin/psql --user=root --password=root --execute \"SHOW DATABASES;\""
+      interval: 2s
+      timeout: 30s
+      retries: 15
+
+volumes:
+  db-data:
+    driver: local
+
