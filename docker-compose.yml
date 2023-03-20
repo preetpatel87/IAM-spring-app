@@ -22,9 +22,12 @@ services:
       - '5432:5432'
     volumes:
       - db-data:/var/lib/postgresql
+    stdin_open: true # docker run -i
+    tty: true
     environment:
       # - "ALLOW_EMPTY_PASSWORD=yes"
       POSTGRESQL_DATABASE: easy_eng
+      POSTGRESQL_USERNAME: root
       POSTGRESQL_PASSWORD: root
       POSTGRESQL_ROOT_PASSWORD: root
     healthcheck:
