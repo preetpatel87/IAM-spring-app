@@ -1,11 +1,16 @@
 package com.iam.forum.api.service;
 
 import com.iam.forum.api.controller.dto.Thread;
+import com.iam.forum.model.repository.ThreadRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 
 import java.util.Date;
 
 public class ThreadService {
+
+    @Autowired
+    private ThreadRepository threadRepository;
 
     public static Thread getThread(){
 
