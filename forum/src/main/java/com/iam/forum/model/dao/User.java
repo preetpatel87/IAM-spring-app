@@ -20,7 +20,7 @@ public class User {
     @Column(name = "password", nullable = false)
     private String password;
     @Type(ListArrayType.class)
-    @Column(name = "role", columnDefinition = "text[]", nullable = false)
+    @Column(name = "role", columnDefinition = "text[]", nullable = true)
     private List<String> role;
 
     public String getName() {
