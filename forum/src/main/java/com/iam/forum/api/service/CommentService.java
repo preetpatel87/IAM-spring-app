@@ -9,4 +9,6 @@ public class CommentService {
 
     @Autowired
     private CommentRepository commentRepository;
+
+    public String getThread(){return "True";}
 }
