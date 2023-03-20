@@ -3,11 +3,16 @@ package com.iam.forum.api.controller.dto;
 import java.util.List;
 
 public class User {
+    private String name;
     private String username;
     private String password;
     private List<String> role;
 
     public static User create(){return new User();}
+
+    public String getName() { return name; }
+
+    public void setName(String name) { this.name = name; }
 
     public String getUsername() {
         return username;

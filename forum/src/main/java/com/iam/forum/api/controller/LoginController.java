@@ -1,23 +1,24 @@
 package com.iam.forum.api.controller;
 
 import com.iam.forum.api.controller.dto.User;
+import com.iam.forum.api.service.LoginService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.net.http.HttpResponse;
 
 @RestController
 @RequestMapping("/api/v1")
 public class LoginController {
     @RequestMapping(method = RequestMethod.POST, path = "/login")
-    public User loginValidation(@RequestBody User user) {
-
-        User user =
-
-        return user;
+    public ResponseEntity<User> loginValidation(@RequestBody User user) {
+        return ResponseEntity.ok().body(new User());
     }
-    @GetMapping
-    public Admin getAdmin() {
-        return Admin.create()
-                .setEmail("sample@email.com")
-                .setName("Mitul")
-                .setId("1");
+
+    @RequestMapping(method = RequestMethod.POST, path = "/register")
+    public ResponseEntity registerUser(@RequestBody User user) {
+
+        return (ResponseEntity) ResponseEntity.ok();
     }
+
 }
