@@ -5,20 +5,27 @@ import com.iam.forum.api.service.LoginService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.http.HttpResponse;
-
 @RestController
 @RequestMapping("/api/v1")
 public class LoginController {
-    @RequestMapping(method = RequestMethod.POST, path = "/login")
-    public ResponseEntity<User> loginValidation(@RequestBody User user) {
-        return ResponseEntity.ok().body(new User());
+    private final LoginService loginService;
+
+    public LoginController(LoginService loginService) {
+        this.loginService = loginService;
     }
 
-    @RequestMapping(method = RequestMethod.POST, path = "/register")
-    public ResponseEntity registerUser(@RequestBody User user) {
-
-        return (ResponseEntity) ResponseEntity.ok();
+    @PostMapping("/login")
+    public ResponseEntity<String> loginValidation(@RequestBody User user) {
+        if (loginService.validateUser(user)) {
+            return ResponseEntity.ok("Login successful!");
+        } else {
+            return ResponseEntity.badRequest().body("Invalid credentials");
+        }
     }
 
+    @PostMapping("/register")
+    public ResponseEntity<String> registerUser(@RequestBody User user) {
+        // register user logic here
+        return ResponseEntity.ok("User registered successfully!");
+    }
 }
