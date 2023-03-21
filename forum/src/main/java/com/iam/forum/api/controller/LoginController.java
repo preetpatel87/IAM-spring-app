@@ -2,30 +2,33 @@ package com.iam.forum.api.controller;
 
 import com.iam.forum.api.controller.dto.User;
 import com.iam.forum.api.service.LoginService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/v1")
 public class LoginController {
-    private final LoginService loginService;
 
-    public LoginController(LoginService loginService) {
-        this.loginService = loginService;
-    }
+    @Autowired
+    private LoginService loginService;
 
     @PostMapping("/login")
-    public ResponseEntity<String> loginValidation(@RequestBody User user) {
-        if (loginService.validateUser(user)) {
-            return ResponseEntity.ok("Login successful!");
+    public ResponseEntity<User> login(@RequestBody User user) {
+        User authenticatedUser = loginService.authenticateUser(user);
+        if (authenticatedUser != null) {
+            return ResponseEntity.ok(authenticatedUser);
         } else {
-            return ResponseEntity.badRequest().body("Invalid credentials");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
     }
 
     @PostMapping("/register")
-    public ResponseEntity<String> registerUser(@RequestBody User user) {
-        // register user logic here
-        return ResponseEntity.ok("User registered successfully!");
+    public ResponseEntity<User> register(@RequestBody User user) {
+        User registeredUser = loginService.registerUser(user);
+        return ResponseEntity.ok(registeredUser);
     }
 }
+
