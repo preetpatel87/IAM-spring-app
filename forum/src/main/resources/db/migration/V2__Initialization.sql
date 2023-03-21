@@ -7,5 +7,3 @@ INSERT into rbac (role, permissions) VALUES ('Viewer', ARRAY ['getThread','getTh
 INSERT into rbac (role, permissions) VALUES ('Creator', ARRAY ['getThread','getThreadList','createThread','getCommentsList','createComment']);
 INSERT into rbac (role, permissions) VALUES ('Moderator', ARRAY ['getThread','getThreadList','createThread','deleteThread','getCommentsList','createComment','deleteComment']);
 INSERT into rbac (role, permissions) VALUES ('Admin', ARRAY ['getThread','getThreadList','createThread','editThread','deleteThread','getCommentsList','createComment','editComment','deleteComment']);
-
-INSERT INTO threads (thread_id, thread_name, thread_description, date_created) VALUES (1,'testThread', 'testThread Description', now());
