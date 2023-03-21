@@ -21,7 +21,7 @@ public class LoginController {
         UserDTO user = loginService.validateUser(userDTO);
 
         if (isNull(user)) {
-            return (ResponseEntity<UserDTO>) ResponseEntity.notFound();
+            return ResponseEntity.notFound().build();
         }
 
         return ResponseEntity.ok().body(user);
@@ -32,7 +32,7 @@ public class LoginController {
         UserDTO user = loginService.registerUser(userDTO);
 
         if (isNull(user)) {
-            return (ResponseEntity<UserDTO>) ResponseEntity.badRequest();
+            return ResponseEntity.badRequest().build();
         }
 
         return ResponseEntity.ok().body(user);

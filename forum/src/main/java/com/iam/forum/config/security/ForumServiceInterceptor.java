@@ -17,7 +17,8 @@ public class ForumServiceInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(
             HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        logger.info("I learned how to print System.out.println using sout {} {} ");
+        String path = request.getContextPath();
+        logger.info("I learned how to print System.out.println using sout {}", path);
         return true;
     }
     @Override

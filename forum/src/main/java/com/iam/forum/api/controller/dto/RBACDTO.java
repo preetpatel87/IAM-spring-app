@@ -2,11 +2,11 @@ package com.iam.forum.api.controller.dto;
 
 import java.util.List;
 
-public class RBAC {
+public class RBACDTO {
     private String role;
     private List<String> APIPermissions;
 
-    public static RBAC create(){return new RBAC();}
+    public static RBACDTO create(){return new RBACDTO();}
 
     public String getRole() {
         return role;

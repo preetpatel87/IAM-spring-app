@@ -22,7 +22,7 @@ public class ThreadController {
         ThreadDTO threadDTOResponseBody = threadService.getThread(threadId);
 
         if (isNull(threadDTOResponseBody)) {
-            return (ResponseEntity<ThreadDTO>) ResponseEntity.notFound();
+            return ResponseEntity.notFound().build();
         }
 
         return ResponseEntity.ok()
@@ -40,32 +40,32 @@ public class ThreadController {
     public ResponseEntity createThread(@RequestBody ThreadDTO createThreadRequestDTO) {
         Boolean createThreadResponse = threadService.createThread(createThreadRequestDTO);
 
-        if (createThreadResponse) {
-            return (ResponseEntity) ResponseEntity.badRequest();
+        if (!createThreadResponse) {
+            return ResponseEntity.badRequest().build();
         }
 
-        return (ResponseEntity) ResponseEntity.ok();
+        return ResponseEntity.ok().build();
     }
 
     @RequestMapping(method = RequestMethod.POST, path = "/edit")
     public ResponseEntity editThread(@RequestBody ThreadDTO editThreadRequestDTO) {
         Boolean editThreadResponse = threadService.editThread(editThreadRequestDTO);
 
-        if (editThreadResponse) {
-            return (ResponseEntity) ResponseEntity.notFound();
+        if (!editThreadResponse) {
+            return ResponseEntity.notFound().build();
         }
 
-        return (ResponseEntity) ResponseEntity.ok();
+        return ResponseEntity.ok().build();
     }
 
     @RequestMapping(method = RequestMethod.DELETE, path = "/delete/{threadId}")
     public ResponseEntity deleteThread(@PathVariable Integer threadId) {
-        Boolean editThreadResponse = threadService.deleteThread(threadId);
+        Boolean deleteThreadResponse = threadService.deleteThread(threadId);
 
-        if (editThreadResponse) {
-            return (ResponseEntity) ResponseEntity.badRequest();
+        if (!deleteThreadResponse) {
+            return ResponseEntity.badRequest().build();
         }
 
-        return (ResponseEntity) ResponseEntity.ok();
+        return ResponseEntity.ok().build();
     }
 }

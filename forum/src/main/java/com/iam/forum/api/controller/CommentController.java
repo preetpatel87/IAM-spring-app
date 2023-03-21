@@ -26,32 +26,32 @@ public class CommentController {
     public ResponseEntity createComment(@RequestBody CommentDTO createCommentRequestDTO) {
         Boolean createCommentResponse = commentService.createComment(createCommentRequestDTO);
 
-        if (createCommentResponse) {
-            return (ResponseEntity) ResponseEntity.badRequest();
+        if (!createCommentResponse) {
+            return ResponseEntity.badRequest().build();
         }
 
-        return (ResponseEntity) ResponseEntity.ok();
+        return ResponseEntity.ok().build();
     }
 
     @RequestMapping(method = RequestMethod.POST, path = "/edit")
     public ResponseEntity editComment(@RequestBody CommentDTO editCommentRequestDTO) {
         Boolean editCommentResponse = commentService.editComment(editCommentRequestDTO);
 
-        if (editCommentResponse) {
-            return (ResponseEntity) ResponseEntity.notFound();
+        if (!editCommentResponse) {
+            return ResponseEntity.notFound().build();
         }
 
-        return (ResponseEntity) ResponseEntity.ok();
+        return ResponseEntity.ok().build();
     }
 
     @RequestMapping(method = RequestMethod.DELETE, path = "/delete/{commentId}")
     public ResponseEntity deleteComment(@PathVariable Integer commentId) {
-        Boolean editCommentResponse = commentService.deleteComment(commentId);
+        Boolean deleteCommentResponse = commentService.deleteComment(commentId);
 
-        if (editCommentResponse) {
-            return (ResponseEntity) ResponseEntity.badRequest();
+        if (!deleteCommentResponse) {
+            return ResponseEntity.badRequest().build();
         }
 
-        return (ResponseEntity) ResponseEntity.ok();
+        return ResponseEntity.ok().build();
     }
 }
