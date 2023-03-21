@@ -2,52 +2,57 @@ package com.iam.forum.api.controller.dto;
 
 import java.util.Date;
 
-public class Comment {
+public class CommentDTO {
     private Integer commentId;
     private Integer threadId;
     private String commentTitle;
     private String commentContent;
     private Date dateCreated;
 
-    public static Comment create(){return new Comment();}
+    public static CommentDTO create(){return new CommentDTO();}
 
     public Integer getCommentId() {
         return commentId;
     }
 
-    public void setCommentId(Integer commentId) {
+    public CommentDTO setCommentId(Integer commentId) {
         this.commentId = commentId;
+        return this;
     }
 
     public Integer getThreadId() {
         return threadId;
     }
 
-    public void setThreadId(Integer threadId) {
+    public CommentDTO setThreadId(Integer threadId) {
         this.threadId = threadId;
+        return this;
     }
 
     public String getCommentTitle() {
         return commentTitle;
     }
 
-    public void setCommentTitle(String commentTitle) {
+    public CommentDTO setCommentTitle(String commentTitle) {
         this.commentTitle = commentTitle;
+        return this;
     }
 
     public String getCommentContent() {
         return commentContent;
     }
 
-    public void setCommentContent(String commentContent) {
+    public CommentDTO setCommentContent(String commentContent) {
         this.commentContent = commentContent;
+        return this;
     }
 
     public Date getDateCreated() {
         return dateCreated;
     }
 
-    public void setDateCreated(Date dateCreated) {
+    public CommentDTO setDateCreated(Date dateCreated) {
         this.dateCreated = dateCreated;
+        return this;
     }
 }

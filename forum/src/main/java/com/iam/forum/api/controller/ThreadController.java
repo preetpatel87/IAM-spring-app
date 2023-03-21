@@ -1,31 +1,42 @@
 package com.iam.forum.api.controller;
 
-import com.iam.forum.api.controller.dto.Thread;
+import com.iam.forum.api.controller.dto.ThreadDTO;
 import com.iam.forum.api.service.ThreadService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+import static java.util.Objects.isNull;
 
 @RestController
 @RequestMapping("/api/v1/thread")
 public class ThreadController {
 
-    @GetMapping
-    public ResponseEntity<Thread> getThread() {
+    @Autowired
+    ThreadService threadService;
 
-        /*
-        In controller, first define the mapping path and method
-        Then call a service method to get the data that will be included in the response
-        Then create and return a ResponseEntity
-         */
+    @RequestMapping(method = RequestMethod.GET, path = "/{threadId}")
+    public ResponseEntity<ThreadDTO> getThread(@PathVariable Integer threadId) {
+        ThreadDTO threadDTOResponseBody = threadService.getThread(threadId);
 
-        Thread threadResponseBody = ThreadService.getThread();
+        if (isNull(threadDTOResponseBody)) {
+            return (ResponseEntity<ThreadDTO>) ResponseEntity.notFound();
+        }
 
         return ResponseEntity.ok()
-                .body(threadResponseBody);
+                .body(threadDTOResponseBody);
     }
 
     @RequestMapping(method = RequestMethod.POST, path = "/create")
-    public ResponseEntity createAdminRequest(@RequestBody Thread createAdminRequest) {
+    public ResponseEntity createThread(@RequestBody ThreadDTO createThreadRequestDTO) {
+        Boolean createThreadResponse = threadService.createThread(createThreadRequestDTO);
+
+        if (createThreadResponse) {
+            return (ResponseEntity) ResponseEntity.badRequest();
+        }
+
         return (ResponseEntity) ResponseEntity.ok();
     }
 }

@@ -2,19 +2,19 @@ package com.iam.forum.api.controller.dto;
 
 import java.util.Date;
 
-public class Thread {
+public class ThreadDTO {
     private Integer threadId;
     private String threadName;
     private String threadDescription;
     private Date dateCreated;
 
-    public static Thread create(){return new Thread();}
+    public static ThreadDTO create(){return new ThreadDTO();}
 
     public Integer getThreadId() {
         return threadId;
     }
 
-    public Thread setThreadId(Integer threadId) {
+    public ThreadDTO setThreadId(Integer threadId) {
         this.threadId = threadId;
         return this;
     }
@@ -23,7 +23,7 @@ public class Thread {
         return threadName;
     }
 
-    public Thread setThreadName(String threadName) {
+    public ThreadDTO setThreadName(String threadName) {
         this.threadName = threadName;
         return this;
     }
@@ -32,7 +32,7 @@ public class Thread {
         return threadDescription;
     }
 
-    public Thread setThreadDescription(String threadDescription) {
+    public ThreadDTO setThreadDescription(String threadDescription) {
         this.threadDescription = threadDescription;
         return this;
     }
@@ -41,7 +41,7 @@ public class Thread {
         return dateCreated;
     }
 
-    public Thread setDateCreated(Date dateCreated) {
+    public ThreadDTO setDateCreated(Date dateCreated) {
         this.dateCreated = dateCreated;
         return this;
     }

@@ -1,12 +1,15 @@
 package com.iam.forum.api.service;
 
-import com.iam.forum.api.controller.dto.Thread;
+import com.iam.forum.api.controller.dto.ThreadDTO;
+import com.iam.forum.api.controller.mapper.ThreadMapper;
+import com.iam.forum.model.dao.Thread;
 import com.iam.forum.model.repository.ThreadRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
+import java.util.List;
+import java.util.Optional;
+
 
 @Service
 public class ThreadService {
@@ -14,33 +17,62 @@ public class ThreadService {
     @Autowired
     private ThreadRepository threadRepository;
 
-    public static Thread getThread(){
+    public ThreadDTO getThread(Integer threadId){
+        try {
+            Thread threadResponse = threadRepository.findById(threadId).orElseThrow();
+            return ThreadMapper.fromDao(threadResponse);
+        }
+        catch (Exception ex){
+            return null;
+        }
+    }
 
-        /*
-        Get thread from query
-        Here the Thread is the DAO
-        Thread thread = queryDatabase();
+    public List<ThreadDTO> getThreadList() {
+        try {
+            List<Thread> threadListResponse = threadRepository.findAll();
+            return ThreadMapper.fromDaolist(threadListResponse);
+        }
+        catch (Exception ex){
+            return null;
+        }
+    }
 
 
-        Then create the DTO Thread
-        Thread.create()
-                .setThreadId(thread.Id)
-                .setThreadName(thread.Name)
-                .setThreadDescription(thread.description)
-                .setDateCreated(thread.dateCreated)
+    public Boolean createThread(ThreadDTO createThreadRequestDTO) {
+        try {
+            Thread thread = ThreadMapper.toDao(createThreadRequestDTO);
+            threadRepository.save(thread);
+            return true;
+        }
+        catch (Exception ex) {
+            return false;
+        }
+    }
 
+    public Boolean editThread(ThreadDTO editThreadRequestDTO) {
+        try {
+            Optional<Thread> thread = threadRepository.findById(editThreadRequestDTO.getThreadId());
 
-         Also create exception handler by adding a try and catch block, for the catch block return a response entity
-         with an error code
-         Eg,
-            return ResponseEntity.notFound();
-         */
+            if (thread.isPresent()){
+                Thread editThreadEntity = ThreadMapper.toDao(editThreadRequestDTO);
+                threadRepository.save(editThreadEntity);
+                return true;
+            }
 
-        return Thread.create()
-                .setThreadId(1)
-                .setThreadName("name")
-                .setThreadDescription("description")
-                .setDateCreated(new Date());
+            return false;
+        }
+        catch (Exception ex) {
+            return false;
+        }
+    }
 
+    public Boolean deleteThread(Integer threadId) {
+        try {
+            threadRepository.deleteById(threadId);
+            return true;
+        }
+        catch (Exception ex) {
+            return false;
+        }
     }
 }
