@@ -29,11 +29,40 @@ public class ThreadController {
                 .body(threadDTOResponseBody);
     }
 
+    @RequestMapping(method = RequestMethod.GET, path = "/list")
+    public ResponseEntity<List<ThreadDTO>> getThreadList() {
+        List<ThreadDTO> threadDTOListResponseBody = threadService.getThreadList();
+        return ResponseEntity.ok()
+                .body(threadDTOListResponseBody);
+    }
+
     @RequestMapping(method = RequestMethod.POST, path = "/create")
     public ResponseEntity createThread(@RequestBody ThreadDTO createThreadRequestDTO) {
         Boolean createThreadResponse = threadService.createThread(createThreadRequestDTO);
 
         if (createThreadResponse) {
+            return (ResponseEntity) ResponseEntity.badRequest();
+        }
+
+        return (ResponseEntity) ResponseEntity.ok();
+    }
+
+    @RequestMapping(method = RequestMethod.POST, path = "/edit")
+    public ResponseEntity editThread(@RequestBody ThreadDTO editThreadRequestDTO) {
+        Boolean editThreadResponse = threadService.editThread(editThreadRequestDTO);
+
+        if (editThreadResponse) {
+            return (ResponseEntity) ResponseEntity.notFound();
+        }
+
+        return (ResponseEntity) ResponseEntity.ok();
+    }
+
+    @RequestMapping(method = RequestMethod.DELETE, path = "/delete/{threadId}")
+    public ResponseEntity deleteThread(@PathVariable Integer threadId) {
+        Boolean editThreadResponse = threadService.deleteThread(threadId);
+
+        if (editThreadResponse) {
             return (ResponseEntity) ResponseEntity.badRequest();
         }
 
