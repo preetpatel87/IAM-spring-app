@@ -16,7 +16,7 @@ public class CommentController {
     CommentService commentService;
 
     @RequestMapping(method = RequestMethod.GET, path = "/list")
-    public ResponseEntity<List<CommentDTO>> getCommentList() {
+    public ResponseEntity<List<CommentDTO>> getCommentsList() {
         List<CommentDTO> commentDTOListResponseBody = commentService.getCommentList();
         return ResponseEntity.ok()
                 .body(commentDTOListResponseBody);
