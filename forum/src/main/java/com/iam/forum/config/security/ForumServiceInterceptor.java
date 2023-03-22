@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,8 +32,10 @@ public class ForumServiceInterceptor implements HandlerInterceptor {
             HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
         String targetHandler = handler.toString().substring(handler.toString().lastIndexOf("#")+ 1, handler.toString().indexOf("("));
-        
-        if (targetHandler.equals("loginValidation") || targetHandler.equals("registerUser")){
+
+        List<String> disablePermissions = Arrays.asList("loginValidation", "registerUser");
+
+        if (disablePermissions.contains(targetHandler)){
             return true;
         }
         
