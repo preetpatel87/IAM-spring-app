@@ -29,10 +29,15 @@ public class ForumServiceInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(
             HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        String username = request.getHeader("username");
-        String password = request.getHeader("password");
 
         String targetHandler = handler.toString().substring(handler.toString().lastIndexOf("#")+ 1, handler.toString().indexOf("("));
+        
+        if (targetHandler.equals("loginValidation") || targetHandler.equals("registerUser")){
+            return true;
+        }
+        
+        String username = request.getHeader("username");
+        String password = request.getHeader("password");
 
         if (username == null || password == null) {
             logger.info("Username or password is Null");
