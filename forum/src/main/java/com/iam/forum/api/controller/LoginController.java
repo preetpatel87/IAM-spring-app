@@ -41,7 +41,7 @@ public class LoginController {
         return ResponseEntity.ok().body(user);
     }
 
-    @RequestMapping(method = RequestMethod.POST, path = "/edit")
+    @RequestMapping(method = RequestMethod.POST, path = "/editUser")
     public ResponseEntity<UserDTO> editUser(@RequestBody UserDTO userDTO) {
         UserDTO user = loginService.editUser(userDTO);
 
