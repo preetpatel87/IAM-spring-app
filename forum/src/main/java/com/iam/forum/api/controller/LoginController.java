@@ -41,7 +41,7 @@ public class LoginController {
         return ResponseEntity.ok().body(user);
     }
 
-    @RequestMapping(method = RequestMethod.POST, path = "/editUser")
+    @RequestMapping(method = RequestMethod.POST, path = "/user/edit")
     public ResponseEntity<UserDTO> editUser(@RequestBody UserDTO userDTO) {
         UserDTO user = loginService.editUser(userDTO);
 
@@ -52,7 +52,7 @@ public class LoginController {
         return ResponseEntity.ok().body(user);
     }
 
-    @RequestMapping(method = RequestMethod.GET, path = "/userList")
+    @RequestMapping(method = RequestMethod.GET, path = "/user/list")
     public ResponseEntity<List<UserDTO>> getUserList() {
         List<UserDTO> usersDTOListResponse = loginService.getUsersList();
         return ResponseEntity.ok()
