@@ -3,6 +3,8 @@ package com.iam.forum.api.controller.mapper;
 import com.iam.forum.api.controller.dto.UserDTO;
 import com.iam.forum.model.dao.User;
 
+import java.util.List;
+
 public class UserMapper {
 
     public static UserDTO fromDao (User user) {
@@ -20,5 +22,9 @@ public class UserMapper {
         user.setUsername(userDTO.getUsername());
         user.setRole(userDTO.getRole());
         return user;
+    }
+
+    public static List<UserDTO> fromDaolist(List<User> userDao) {
+        return userDao.stream().map(UserMapper::fromDao).toList();
     }
 }
