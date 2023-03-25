@@ -32,6 +32,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
                 .allowedOrigins("*")
                 .allowedHeaders("*")
                 .allowedMethods("HEAD", "OPTIONS", "GET", "POST", "PUT", "PATCH", "DELETE")
+                .exposedHeaders("*")
                 .maxAge(MAX_AGE_SECS);
     }
 
