@@ -27,18 +27,28 @@ public class ForumServiceInterceptor implements HandlerInterceptor {
     }
 
     Logger logger = LoggerFactory.getLogger(ForumServiceInterceptor.class);
+
     @Override
     public boolean preHandle(
             HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
-        String targetHandler = handler.toString().substring(handler.toString().lastIndexOf("#")+ 1, handler.toString().indexOf("("));
-
-        List<String> disablePermissions = Arrays.asList("loginValidation", "registerUser");
-
-        if (disablePermissions.contains(targetHandler)){
+        logger.info(handler.toString());
+        if ((handler.toString().substring(0, handler.toString().lastIndexOf(".")))
+                .equals("org.springframework.web.servlet.handler")) {
             return true;
         }
-        
+
+        String targetHandler = handler.toString().substring(handler.toString().lastIndexOf("#") + 1,
+                handler.toString().indexOf("("));
+        logger.info(targetHandler);
+
+        List<String> disablePermissions = Arrays.asList("loginValidation",
+                "registerUser");
+
+        if (disablePermissions.contains(targetHandler)) {
+            return true;
+        }
+
         String username = request.getHeader("username");
         String password = request.getHeader("password");
 
@@ -50,21 +60,20 @@ public class ForumServiceInterceptor implements HandlerInterceptor {
 
         Optional<User> userResponse = userRepository.findById(username);
 
-        if (userResponse.isEmpty()){
+        if (userResponse.isEmpty()) {
             logger.info("No user found!");
             response.setStatus(HttpStatus.UNAUTHORIZED.value());
             return false;
         }
-        if (!userResponse.get().getPassword().equals(password)){
+        if (!userResponse.get().getPassword().equals(password)) {
             logger.info("Incorrect Password");
             response.setStatus(HttpStatus.UNAUTHORIZED.value());
             return false;
         }
 
-
         List<String> roles = userResponse.get().getRole();
         logger.info("Roles: {}", roles.toString());
-        if (roles.contains("Admin")){
+        if (roles.contains("Admin")) {
             Optional<RBAC> rbac = rbacRepository.findById("Admin");
             if (rbac.isPresent()) {
                 List<String> APIPermissions = rbac.get().getAPIPermissions();
@@ -72,8 +81,7 @@ public class ForumServiceInterceptor implements HandlerInterceptor {
                     return true;
                 }
             }
-        }
-        else if (roles.contains("Moderator")){
+        } else if (roles.contains("Moderator")) {
             Optional<RBAC> rbac = rbacRepository.findById("Moderator");
             if (rbac.isPresent()) {
                 List<String> APIPermissions = rbac.get().getAPIPermissions();
@@ -81,8 +89,7 @@ public class ForumServiceInterceptor implements HandlerInterceptor {
                     return true;
                 }
             }
-        }
-        else if (roles.contains("Creator")){
+        } else if (roles.contains("Creator")) {
             Optional<RBAC> rbac = rbacRepository.findById("Creator");
             if (rbac.isPresent()) {
                 List<String> APIPermissions = rbac.get().getAPIPermissions();
@@ -90,8 +97,7 @@ public class ForumServiceInterceptor implements HandlerInterceptor {
                     return true;
                 }
             }
-        }
-        else if (roles.contains("Viewer")) {
+        } else if (roles.contains("Viewer")) {
             Optional<RBAC> rbac = rbacRepository.findById("Viewer");
             if (rbac.isPresent()) {
                 List<String> APIPermissions = rbac.get().getAPIPermissions();
@@ -105,12 +111,15 @@ public class ForumServiceInterceptor implements HandlerInterceptor {
         response.setStatus(HttpStatus.UNAUTHORIZED.value());
         return false;
     }
+
     @Override
     public void postHandle(
             HttpServletRequest request, HttpServletResponse response, Object handler,
-            ModelAndView modelAndView) throws Exception {}
+            ModelAndView modelAndView) throws Exception {
+    }
 
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response,
-                                Object handler, Exception exception) throws Exception {}
+            Object handler, Exception exception) throws Exception {
+    }
 }

@@ -7,6 +7,7 @@ import com.iam.forum.model.repository.CommentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,19 +21,18 @@ public class CommentService {
         try {
             List<Comment> commentListResponse = commentRepository.findAll();
             return CommentMapper.fromDaolist(commentListResponse);
-        }
-        catch (Exception ex){
+        } catch (Exception ex) {
             return null;
         }
     }
 
     public Boolean createComment(CommentDTO createCommentRequestDTO) {
         try {
+            createCommentRequestDTO.setDateCreated(new Date());
             Comment comment = CommentMapper.toDao(createCommentRequestDTO);
             commentRepository.save(comment);
             return true;
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             return false;
         }
     }
@@ -41,15 +41,15 @@ public class CommentService {
         try {
             Optional<Comment> comment = commentRepository.findById(editCommentRequestDTO.getCommentId());
 
-            if (comment.isPresent()){
+            if (comment.isPresent()) {
+                editCommentRequestDTO.setDateCreated(comment.get().getDateCreated());
                 Comment editCommentEntity = CommentMapper.toDao(editCommentRequestDTO);
                 commentRepository.save(editCommentEntity);
                 return true;
             }
 
             return false;
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             return false;
         }
     }
@@ -58,8 +58,7 @@ public class CommentService {
         try {
             commentRepository.deleteById(commentId);
             return true;
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             return false;
         }
     }

@@ -7,9 +7,9 @@ import com.iam.forum.model.repository.ThreadRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-
 
 @Service
 public class ThreadService {
@@ -17,12 +17,11 @@ public class ThreadService {
     @Autowired
     private ThreadRepository threadRepository;
 
-    public ThreadDTO getThread(Integer threadId){
+    public ThreadDTO getThread(Integer threadId) {
         try {
             Thread threadResponse = threadRepository.findById(threadId).orElseThrow();
             return ThreadMapper.fromDao(threadResponse);
-        }
-        catch (Exception ex){
+        } catch (Exception ex) {
             return null;
         }
     }
@@ -31,20 +30,19 @@ public class ThreadService {
         try {
             List<Thread> threadListResponse = threadRepository.findAll();
             return ThreadMapper.fromDaolist(threadListResponse);
-        }
-        catch (Exception ex){
+        } catch (Exception ex) {
             return null;
         }
     }
 
-
     public Boolean createThread(ThreadDTO createThreadRequestDTO) {
         try {
+            createThreadRequestDTO.setDateCreated(new Date());
+
             Thread thread = ThreadMapper.toDao(createThreadRequestDTO);
             threadRepository.save(thread);
             return true;
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             return false;
         }
     }
@@ -53,15 +51,16 @@ public class ThreadService {
         try {
             Optional<Thread> thread = threadRepository.findById(editThreadRequestDTO.getThreadId());
 
-            if (thread.isPresent()){
+            if (thread.isPresent()) {
+                editThreadRequestDTO.setDateCreated(thread.get().getDateCreated());
+
                 Thread editThreadEntity = ThreadMapper.toDao(editThreadRequestDTO);
                 threadRepository.save(editThreadEntity);
                 return true;
             }
 
             return false;
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             return false;
         }
     }
@@ -70,8 +69,7 @@ public class ThreadService {
         try {
             threadRepository.deleteById(threadId);
             return true;
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             return false;
         }
     }

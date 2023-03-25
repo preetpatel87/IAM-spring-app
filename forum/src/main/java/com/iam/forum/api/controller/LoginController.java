@@ -19,6 +19,7 @@ public class LoginController {
     @Autowired
     LoginService loginService;
 
+    // @CrossOrigin(originPatterns = "http://localhost:8080")
     @RequestMapping(method = RequestMethod.POST, path = "/login")
     public ResponseEntity<UserDTO> loginValidation(@RequestBody UserDTO userDTO) {
         UserDTO user = loginService.validateUser(userDTO);
