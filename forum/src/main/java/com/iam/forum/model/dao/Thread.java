@@ -16,6 +16,8 @@ public class Thread {
     private String threadName;
     @Column(name = "thread_description", nullable = false)
     private String threadDescription;
+    @Column(name="created_by", nullable = false)
+    private String createdBy;
     @Column(name = "date_created", nullable = false)
     private Date dateCreated;
 
@@ -41,6 +43,14 @@ public class Thread {
 
     public void setThreadDescription(String threadDescription) {
         this.threadDescription = threadDescription;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
     }
 
     public Date getDateCreated() {

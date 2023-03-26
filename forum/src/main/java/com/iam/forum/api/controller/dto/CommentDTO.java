@@ -7,6 +7,7 @@ public class CommentDTO {
     private Integer threadId;
     private String commentTitle;
     private String commentContent;
+    private String createdBy;
     private Date dateCreated;
 
     public static CommentDTO create(){return new CommentDTO();}
@@ -44,6 +45,15 @@ public class CommentDTO {
 
     public CommentDTO setCommentContent(String commentContent) {
         this.commentContent = commentContent;
+        return this;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public CommentDTO setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
         return this;
     }
 

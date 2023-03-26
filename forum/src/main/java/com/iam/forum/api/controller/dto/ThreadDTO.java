@@ -6,6 +6,7 @@ public class ThreadDTO {
     private Integer threadId;
     private String threadName;
     private String threadDescription;
+    private String createdBy;
     private Date dateCreated;
 
     public static ThreadDTO create(){return new ThreadDTO();}
@@ -34,6 +35,15 @@ public class ThreadDTO {
 
     public ThreadDTO setThreadDescription(String threadDescription) {
         this.threadDescription = threadDescription;
+        return this;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public ThreadDTO setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
         return this;
     }
 

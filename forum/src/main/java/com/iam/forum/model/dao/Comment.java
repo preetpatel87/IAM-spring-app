@@ -18,6 +18,8 @@ public class Comment {
     private String commentTitle;
     @Column(name = "comment_content", nullable = false)
     private String commentContent;
+    @Column(name="created_by", nullable = false)
+    private String createdBy;
     @Column(name = "date_created", nullable = false)
     private Date dateCreated;
 
@@ -51,6 +53,14 @@ public class Comment {
 
     public void setCommentContent(String commentContent) {
         this.commentContent = commentContent;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
     }
 
     public Date getDateCreated() {

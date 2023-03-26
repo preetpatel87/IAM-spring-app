@@ -13,6 +13,7 @@ public class CommentMapper {
                 .setCommentTitle(comment.getCommentTitle())
                 .setCommentContent(comment.getCommentContent())
                 .setThreadId(comment.getThreadId())
+                .setCreatedBy(comment.getCreatedBy())
                 .setDateCreated(comment.getDateCreated());
     }
 
@@ -25,6 +26,7 @@ public class CommentMapper {
         comment.setCommentId(commentDTO.getCommentId());
         comment.setCommentContent(commentDTO.getCommentContent());
         comment.setCommentTitle(commentDTO.getCommentTitle());
+        comment.setCreatedBy(commentDTO.getCreatedBy());
         comment.setDateCreated(commentDTO.getDateCreated());
         comment.setThreadId(commentDTO.getThreadId());
 

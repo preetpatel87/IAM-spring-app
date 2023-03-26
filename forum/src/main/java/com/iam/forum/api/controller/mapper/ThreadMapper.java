@@ -11,6 +11,7 @@ public class ThreadMapper {
                 .setThreadId(thread.getThreadId())
                 .setThreadName(thread.getThreadName())
                 .setThreadDescription(thread.getThreadDescription())
+                .setCreatedBy(thread.getCreatedBy())
                 .setDateCreated(thread.getDateCreated());
     }
     public static List<ThreadDTO> fromDaolist(List<Thread> threadDao) {
@@ -22,6 +23,7 @@ public class ThreadMapper {
         thread.setThreadId(threadDTO.getThreadId());
         thread.setThreadName(threadDTO.getThreadName());
         thread.setThreadDescription(threadDTO.getThreadDescription());
+        thread.setCreatedBy(threadDTO.getCreatedBy());
         thread.setDateCreated(threadDTO.getDateCreated());
         return thread;
     }
