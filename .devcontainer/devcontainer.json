@@ -39,7 +39,7 @@
 	// "features": {},
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	// "forwardPorts": [],
+	"forwardPorts": ["8080:8080"],
 
 	// Uncomment the next line if you want start specific services in your Docker Compose config.
 	"runServices": ["postgresqldb"],
@@ -50,6 +50,7 @@
 	// Uncomment the next line to run commands after the container is created.
 	"postCreateCommand": "cat /etc/os-release && java --version",
 
+
 	// Configure tool-specific properties.
 	"customizations": {
 		"vscode": {
@@ -58,8 +59,9 @@
 				"vscjava.vscode-spring-initializr",
 				"vscjava.vscode-gradle"
 			],
-		}
-	}
+			"settings": {"maven.executable.path": "mvnd"}
+		},
+	},
 
 	// Uncomment to connect as an existing user other than the container default. More info: https://aka.ms/dev-containers-non-root.
 	// "remoteUser": "devcontainer"
